@@ -51,11 +51,11 @@ class UIComponent
 	render(){
 		throw new Error("FastUI.Component Exception: render is an abstract method that needs implementing");
 	}
-	/**
-	* @returns {HTMLElement}
-	* @param {String} qs - Query String
-	* @usage - Fetches a child element of the component.
-	*/
+  /**
+  * @returns {HTMLElement}
+  * @param {String} qs - Query String
+  * @usage - Fetches a child element of the component.
+  */
 	getNode(qs)
 	{
 		return this.domElement.querySelector(qs);
