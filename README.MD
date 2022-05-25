@@ -15,7 +15,17 @@ FastUI you simply need this code below!
  
 #### Using components
  ```
- <fast component="path/to/component"></fast>
+ <fast component="path/to/component_folder"></fast>
+ <!-- DO NOT REFERENCE THE FILE DIRECTLY, FASTUI DOES THIS FOR YOU!-->
+ <!-- EXAMPLE !-->
+   - htdocs
+     - Components
+       - Headbar
+         - component.js
+	 - component.css
+	 
+    <fast component="Components/Headbar"></fast>
+ <!-- END EXAMPLE !-->
  ```
  this loads a FastUI component into the webpage, components are not accessible within the Browser, All logic for a component
  must be done within the Component's `component.js` file. This is done to prevent tampering by users.
