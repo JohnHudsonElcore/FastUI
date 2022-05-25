@@ -20,11 +20,13 @@ class UIComponent
                            - its class to make calls
   * @returns - void
   */
-	setState(params){
+	setState(params , ignoreUpdate = false){
 		for(let prop in params){
 			this.state[prop] = params[prop];
 		}
-		this.update();
+		if( !ignoreUpdate ){
+			this.update();
+		}
 	}
   /**
   * @param {String} key - the key for the state object
