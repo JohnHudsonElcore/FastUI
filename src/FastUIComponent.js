@@ -42,6 +42,7 @@ class UIComponent
 	update()
 	{
 		this.domElement.innerHTML = this.render();
+		this.reapplyEvents();
 	}
   /**
   * @abstract
@@ -59,6 +60,44 @@ class UIComponent
 	getNode(qs)
 	{
 		return this.domElement.querySelector(qs);
+	}
+  /**
+  * @param {String} qs - Query Selector of Component Descendant Node
+  * @param {String} evName - Event to listen for
+  * @param {Closure} callback - Function to execute when event is fired
+  */
+	listenForEvent(qs , evName , callback){
+		if(!this.events[evName])
+		{
+			this.events[evName] = [];
+		}
+		this.events[evName].push({
+			element: qs , 
+			call: callback
+		});
+	}
+  /**
+  * @description - When update is called, this reapplies the events when innerHTML is
+                 - reset, the Browser's Garbage collector destroys the previous
+		 - elements events, so they need re-assigning.
+  */
+	reapplyEvents()
+	{
+		for(let ev in this.events)
+		{
+			this.events[ev].forEach( ( subscriber ) => { 
+				let node = this.getNode( subscriber.element );
+
+				if ( node )
+				{
+					node.addEventListener( ev , ( event ) => {
+
+						subscriber.call.call( this , event );
+
+					} );
+				}
+			} );
+		}
 	}
 }
 FastUI.Component = UIComponent;
