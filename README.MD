@@ -22,7 +22,7 @@ FastUI you simply need this code below!
      - Components
        - Headbar
          - component.js
-	   - component.css
+	     - component.css
 	 
     <fast component="Components/Headbar"></fast>
  <!-- END EXAMPLE !-->
