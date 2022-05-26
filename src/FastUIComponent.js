@@ -99,20 +99,25 @@ class UIComponent
   */
 	reapplyEvents()
 	{
-		for(let ev in this.events)
+		try{
+			for(let ev in this.events)
+			{
+				this.events[ev].forEach( ( subscriber ) => { 
+					let node = this.getNode( subscriber.element );
+
+					if ( node )
+					{
+						node.addEventListener( ev , ( event ) => {
+
+							subscriber.call.call( this , event );
+
+						} );
+					}
+				} );
+			}
+		}catch(e)
 		{
-			this.events[ev].forEach( ( subscriber ) => { 
-				let node = this.getNode( subscriber.element );
-
-				if ( node )
-				{
-					node.addEventListener( ev , ( event ) => {
-
-						subscriber.call.call( this , event );
-
-					} );
-				}
-			} );
+			console.error(e);
 		}
 	}
 }
