@@ -78,15 +78,23 @@ class FastUI
 				return;
 			}
 
+			if(this._componentRegistry[registryKey])
+			{
+				resolve({
+					component: this._componentRegistry[registryKey]
+				});
+				return;
+			}
+
 			this.getExternalAsset(path + "/component.js")
 				.then((content) => {
-
+					
 					if(!document.querySelector("style[component='" + path + '"]'))
 					{
 						this.getExternalAsset(path + '/component.css')
 							.then((css) => {
 								eval(content);
-								this._componentRegistry[registryKey] = path;
+								this._componentRegistry[registryKey] = FastUI.export;
 
 								let s = document.createElement("style");
 								s.setAttribute("component" , path);
@@ -103,7 +111,7 @@ class FastUI
 							});
 					}else{
 						eval(content);
-						this._componentRegistry[registryKey] = path;
+						this._componentRegistry[registryKey] = FastUI.export;
 						resolve({
 							component: FastUI.export
 						});
@@ -127,12 +135,14 @@ class FastUI
 				{
 					this.getComponent(node.getAttribute("component"))
 						.then((_export) => {
-							console.log(_export);
+							
 							let comp = _export.component;
 
-							node.controller = new comp({
+							let a = new comp({
 								domElement: node
 							});
+							
+							
 							node.setAttribute("fast-initialized" , "true");
 
 						})
