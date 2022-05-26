@@ -79,6 +79,10 @@ class UIComponent
   * @param {Closure} callback - Function to execute when event is fired
   */
 	listenForEvent(qs , evName , callback){
+		if(!this.events)
+		{
+		    this.events = {};
+		}
 		if(!this.events[evName])
 		{
 			this.events[evName] = [];
