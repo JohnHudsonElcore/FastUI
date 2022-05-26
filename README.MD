@@ -1,3 +1,5 @@
+ #### Website:
+ https://fastui.elcore.co.uk
  # FastUI
  An extremely lightweight JavaScript/HTML library designed for Rapid UI development. To get started with
 FastUI you simply need this code below!
