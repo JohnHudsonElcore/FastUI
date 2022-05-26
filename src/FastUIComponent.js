@@ -43,8 +43,18 @@ class UIComponent
   */
 	update()
 	{
-		this.domElement.innerHTML = this.render();
-		this.reapplyEvents();
+		let res = this.render();
+
+		if(res.constructor.name === 'Promise')
+		{
+			res.then( (html) => {
+				this.domElement.innerHTML = html;
+				this.reapplyEvents();
+			} );
+		}else{
+			this.domElement.innerHTML = this.render();
+			this.reapplyEvents();
+		}
 	}
   /**
   * @abstract
