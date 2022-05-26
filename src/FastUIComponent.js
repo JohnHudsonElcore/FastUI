@@ -83,9 +83,14 @@ class UIComponent
 		{
 		    this.events = {};
 		}
-		if(!this.events[evName])
+		try{
+			if(!this.events[evName])
+			{
+				this.events[evName] = [];
+			}
+		}catch(e)
 		{
-			this.events[evName] = [];
+			this.events[evName] = [];	
 		}
 		this.events[evName].push({
 			element: qs , 
